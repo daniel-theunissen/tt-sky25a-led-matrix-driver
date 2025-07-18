@@ -5,7 +5,7 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v
+PROJECT_SOURCES = tt_um_led_matrix_driver.v serial_matrix_driver.v spi.v led_driver.v
 
 ifneq ($(GATES),yes)
 
