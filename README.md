@@ -4,7 +4,7 @@
 
 - [Read the documentation for project](docs/info.md)
 
-![demo](docs/demo.gif)
+![demo](docs/LED.gif)
 
 ## What is Tiny Tapeout?
 
