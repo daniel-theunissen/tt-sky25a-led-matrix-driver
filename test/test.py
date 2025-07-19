@@ -91,8 +91,6 @@ async def test_project(dut):
 
     data = [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
     await simulate_frame_input(dut, data)
-    bitstring = await get_GRB(dut)
-    print(bitstring)
 
     await Timer(500, units="us")
 
