@@ -21,10 +21,13 @@ module tb ();
   wire [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
+  wire SCK;
 `ifdef GL_TEST
   wire VPWR = 1'b1;
   wire VGND = 1'b0;
 `endif
+
+  assign ui_in[0] = SCK;
 
   // Replace tt_um_example with your module name:
   tt_um_led_matrix_driver user_project (
