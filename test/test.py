@@ -89,14 +89,14 @@ async def test_project(dut):
     await Timer(500, units="us")
 
     data = [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-    CS.value = 0
-    await simulate_spi_frame(dut, data)
-    CS.value = 1
-    # await Timer(500, units="us")
 
-    # data = [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1]
-    # await simulate_frame_input(dut, data)
+    await simulate_frame_input(dut, data)
 
-    # await Timer(500, units="us")
+    await Timer(500, units="us")
+
+    data = [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1]
+    await simulate_frame_input(dut, data)
+
+    await Timer(500, units="us")
 
     await ClockCycles(dut.clk, 1000)
