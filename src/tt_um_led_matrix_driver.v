@@ -21,7 +21,7 @@ module tt_um_led_matrix_driver (
   // Assign unused pins to 0
   assign uio_out = 0;
   assign uio_oe = 0;
-  assign uo_out[7:3] = 0;
+  assign uo_out[7:5] = 0;
 
   // SCK
   wire SCK;
@@ -55,6 +55,9 @@ module tt_um_led_matrix_driver (
   wire LED2;
   assign uo_out[2] = LED2;
 
+  wire [1:0] status;
+  assign uo_out[4:3] = status;
+
   serial_matrix_driver driver (
       .CLK(CLK),
       .RESET(RESET),
@@ -63,7 +66,8 @@ module tt_um_led_matrix_driver (
       .CS(CS),
       .DIN(DIN),
       .LED1(LED1),
-      .LED2(LED2)
+      .LED2(LED2),
+      .status(status)
   );
 
 endmodule

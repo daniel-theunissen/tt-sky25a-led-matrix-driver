@@ -2,17 +2,18 @@
 `default_nettype none
 
 // Simulation timestep
-`timescale 1ns / 10ps
+// `timescale 1ns / 10ps
 
 module serial_matrix_driver (
-    input  CLK,
-    input  RESET,
-    input  SCK,
-    input  SDI,
-    input  CS,
+    input CLK,
+    input RESET,
+    input SCK,
+    input SDI,
+    input CS,
     output DIN,
     output LED1,
-    output LED2
+    output LED2,
+    output [1:0] status
 );
 
   assign LED2 = !CS;
@@ -49,7 +50,8 @@ module serial_matrix_driver (
       .data(pixel_data),
       .new_pixel(new_pixel_en),
       .ready(ready),
-      .din(DIN)
+      .din(DIN),
+      .status(status)
   );
 
 

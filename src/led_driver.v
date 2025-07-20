@@ -2,7 +2,7 @@
 `default_nettype none
 
 // Simulation timestep
-`timescale 1ns / 10ps
+// `timescale 1ns / 10ps
 
 module led_driver (
     input clk,
@@ -10,7 +10,8 @@ module led_driver (
     input [23:0] data,
     input new_pixel,
     output reg din,
-    output reg ready
+    output reg ready,
+    output [1:0] status
 );
 
   // assign new_pixel = BTN2;
@@ -23,7 +24,7 @@ module led_driver (
   localparam RES_DELAY = 300e-6;  // reset duration (300us)
 
   // Calculate clock cycles needed based on input clock frequency
-  parameter CLOCK_FREQ = 12e6;  // 20MHz clock frequency
+  parameter CLOCK_FREQ = 12e6;  // 12MHz clock frequency
 
   // Calculate clock cycles for each timing parameter
   localparam [15:0] CYCLES_PERIOD = $floor(CLOCK_FREQ * PERIOD);
@@ -35,7 +36,8 @@ module led_driver (
 
   // state machine
   parameter RST = 0, READY = 1, SENDING = 2;
-  reg [ 1:0] state;
+  reg [1:0] state;
+  assign status = state;
   reg [ 4:0] bit_index;
   reg [15:0] time_counter = 0;
 
