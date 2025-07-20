@@ -24,7 +24,7 @@ module led_driver (
   localparam RES_DELAY = 300e-6;  // reset duration (300us)
 
   // Calculate clock cycles needed based on input clock frequency
-  parameter CLOCK_FREQ = 20e6;  // 20MHz clock frequency
+  parameter CLOCK_FREQ = 12e6;  // 12MHz clock frequency
 
   // Calculate clock cycles for each timing parameter
   localparam [15:0] CYCLES_PERIOD = $floor(CLOCK_FREQ * PERIOD);

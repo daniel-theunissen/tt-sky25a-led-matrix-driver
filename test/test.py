@@ -7,7 +7,7 @@ from cocotb.triggers import ClockCycles, Timer, Edge, FallingEdge
 from cocotb.utils import get_sim_time
 import math
 
-CLOCK_FREQUENCY = 20  # MHz
+CLOCK_FREQUENCY = 12  # MHz
 CLOCK_PERIOD = round(1 / CLOCK_FREQUENCY, int(-1 * math.log10(1e-4)))
 SPI_FREQUENCY = 1  # MHz
 SPI_PERIOD = round(1 / SPI_FREQUENCY, int(-1 * math.log10(1e-4)))
