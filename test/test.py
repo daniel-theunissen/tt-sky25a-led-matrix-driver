@@ -7,7 +7,7 @@ from cocotb.triggers import ClockCycles, Timer, Edge, FallingEdge
 from cocotb.utils import get_sim_time
 import math
 
-CLOCK_FREQUENCY = 12  # MHz
+CLOCK_FREQUENCY = 20  # MHz
 CLOCK_PERIOD = round(1 / CLOCK_FREQUENCY, int(-1 * math.log10(1e-4)))
 SPI_FREQUENCY = 1  # MHz
 SPI_PERIOD = round(1 / SPI_FREQUENCY, int(-1 * math.log10(1e-4)))
@@ -16,7 +16,7 @@ SPI_PERIOD = round(1 / SPI_FREQUENCY, int(-1 * math.log10(1e-4)))
 async def reset(dut):
     RESET = dut.rst_n
     RESET.value = 0
-    await ClockCycles(dut.clk, 5)
+    await ClockCycles(dut.clk, 500)
     RESET.value = 1
 
 
@@ -79,24 +79,24 @@ async def test_project(dut):
     # Set the input values you want to test
     CLK = dut.clk
     CS = dut.ui_in[2]
-    SCK = dut.ui_in[0]
-    SDI = dut.ui_in[1]
+    CS.value = 1
 
     clock = Clock(CLK, CLOCK_PERIOD, units="us")
     cocotb.start_soon(clock.start())
 
+    await Timer(500, units="us")
     await reset(dut)
-
     await Timer(500, units="us")
 
     data = [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-    await simulate_frame_input(dut, data)
+    CS.value = 0
+    await simulate_spi_frame(dut, data)
+    CS.value = 1
+    # await Timer(500, units="us")
 
-    await Timer(500, units="us")
+    # data = [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1]
+    # await simulate_frame_input(dut, data)
 
-    data = [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1]
-    await simulate_frame_input(dut, data)
-
-    await Timer(500, units="us")
+    # await Timer(500, units="us")
 
     await ClockCycles(dut.clk, 1000)

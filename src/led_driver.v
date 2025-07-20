@@ -24,7 +24,7 @@ module led_driver (
   localparam RES_DELAY = 300e-6;  // reset duration (300us)
 
   // Calculate clock cycles needed based on input clock frequency
-  parameter CLOCK_FREQ = 12e6;  // 12MHz clock frequency
+  parameter CLOCK_FREQ = 20e6;  // 20MHz clock frequency
 
   // Calculate clock cycles for each timing parameter
   localparam [15:0] CYCLES_PERIOD = $floor(CLOCK_FREQ * PERIOD);
@@ -74,7 +74,7 @@ module led_driver (
           if (time_counter < CYCLES_PERIOD - 1) begin
             ready <= 0;
             time_counter <= time_counter + 1;
-            if (time_counter < (data[5'd23-bit_index] ? CYCLES_T1H - 1 : CYCLES_T0H - 1)) begin
+            if (time_counter < (data[5'd23-bit_index] ? CYCLES_T1H : CYCLES_T0H)) begin
               din <= 1;
             end else begin
               din <= 0;
